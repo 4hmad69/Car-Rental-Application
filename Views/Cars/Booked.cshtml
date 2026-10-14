@@ -4,32 +4,31 @@
     ViewData["Title"] = "Booked Cars";
 }
 
-<div class="d-flex justify-content-between align-items-center flex-wrap gap-2 mb-4">
-    <h1 class="mb-0">Booked Cars</h1>
+<div class="d-flex align-items-center justify-content-between flex-wrap gap-3 mb-4">
+    <div>
+        <h1 class="mb-1">Booked Cars</h1>
+        <p class="text-muted mb-0">
+            Cars that have already been reserved.
+        </p>
+    </div>
 
-    <a asp-controller="Cars"
-       asp-action="Index"
-       class="btn btn-primary">
+    <a class="btn btn-outline-primary"
+       asp-controller="Cars"
+       asp-action="Index">
         Back to Cars
     </a>
 </div>
 
-@if (Model.Count == 0)
-{
-    <div class="alert alert-info" role="alert">
-        No cars have been booked yet.
-    </div>
-}
-else
+@if (Model.Count > 0)
 {
     <div class="table-responsive">
-        <table class="table table-striped table-hover align-middle">
+        <table class="table table-hover table-striped align-middle">
             <thead class="table-dark">
                 <tr>
                     <th scope="col">ID</th>
                     <th scope="col">Car Name</th>
-                    <th scope="col">Price Per Day</th>
-                    <th scope="col">Status</th>
+                    <th scope="col" class="text-end">Price Per Day</th>
+                    <th scope="col" class="text-center">Status</th>
                 </tr>
             </thead>
 
@@ -38,9 +37,11 @@ else
                 {
                     <tr>
                         <td>@car.Id</td>
-                        <td>@car.Name</td>
-                        <td>PKR @car.PricePerDay.ToString("N0")</td>
-                        <td>
+                        <td class="fw-bold">@car.Name</td>
+                        <td class="text-end">
+                            PKR @car.PricePerDay.ToString("N0")
+                        </td>
+                        <td class="text-center">
                             <span class="badge bg-warning text-dark">
                                 Booked
                             </span>
@@ -49,5 +50,11 @@ else
                 }
             </tbody>
         </table>
+    </div>
+}
+else
+{
+    <div role="alert" class="alert alert-info">
+        Your booked cars will appear here once you reserve a car.
     </div>
 }
